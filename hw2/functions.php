@@ -162,18 +162,21 @@ function createfile($name)
     }
 }
 
-function writeToFile($name, $string) {
+function writeToFile($name, $string)
+{
     $file = fopen($name, "w+") or die("Всё сломалось!");
     fwrite($file, $string);
     echo "Запись в файл успешно произведена.";
     fclose($file);
 }
 
-function task9($name) {
+function task9($name)
+{
     echo file_get_contents($name);
 }
 
-function hasSmile($string) {
+function hasSmile($string)
+{
     preg_match("/[:][)]/", $string, $out);
     if ($out) {
         return $out[0];
@@ -182,7 +185,8 @@ function hasSmile($string) {
     }
 }
 
-function task8($string) {
+function task8($string)
+{
 
     if (hasSmile($string)) {
         return hasSmile($string);
