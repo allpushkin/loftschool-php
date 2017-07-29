@@ -62,4 +62,3 @@
 С помощью CURL запросить данные по адресу: 
 https://en.wikipedia.org/w/api.php?action=query&titles=Main%20Page&prop=revisions&rvprop=content&format=json
 Вывести title и page_id.
->>>>>>> 3d0a3123fe05cf72152eb284603e50c15270d6e3
