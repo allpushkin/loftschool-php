@@ -16,7 +16,9 @@
         <Zip>95819</Zip>
         <Country>USA</Country>
     </Address>
+
     <DeliveryNotes>Please leave packages in shed by driveway.</DeliveryNotes>
+
     <Items>
         <Item PartNumber="872-AA">
             <ProductName>Lawnmower</ProductName>

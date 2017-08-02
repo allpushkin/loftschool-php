@@ -18,4 +18,17 @@ ini_set("display_errors", 1);
 
 require_once "functions.php";
 
+echo "<h2>Задание 1</h2>";
+
 homework3Task1("./data.xml");
+
+echo "<h2>Задание 2</h2>";
+
+homework3Task2([[["One", "Two"], ["Three", "Four"], ["Five", "Six"]], ["Seven", "Eight"]]);
+
+
+echo "<h2>Задание 4</h2>";
+
+$url = "https://en.wikipedia.org/w/api.php?action=query&titles=Main%20Page&prop=revisions&rvprop=content&format=json";
+
+homework3Task4($url);
