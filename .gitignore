@@ -4,3 +4,6 @@
 .DS_Store
 /hw2/test.txt
 /hw2/anothertest.txt
+file.csv
+output.json
+output2.json
