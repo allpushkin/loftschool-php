@@ -1,3 +1,7 @@
+<?php
+  $configs = include('registration/db/config.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,48 +31,22 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Авторизация</a></li>
-            <li><a href="reg.html">Регистрация</a></li>
-            <li><a href="list.html">Список пользователей</a></li>
-            <li><a href="filelist.html">Список файлов</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+    <?php include "components/header.php"; ?>
 
     <div class="container">
     <h1>Запретная зона, доступ только авторизированному пользователю</h1>
-      <h2>Информация выводится из базы данных</h2>
+      <h2>Информация выводится из списка файлов</h2>
       <table class="table table-bordered">
         <tr>
-          <th>Пользователь(логин)</th>
-          <th>Имя</th>
-          <th>возраст</th>
-          <th>описание</th>
+          <th>Название файла</th>
           <th>Фотография</th>
           <th>Действия</th>
         </tr>
         <tr>
-          <td>vasya99</td>
-          <td>Вася</td>
-          <td>14</td>
-          <td>Эксперт в спорах в интернете</td>
+          <td>1.jpg</td>
           <td><img src="http://lorempixel.com/people/200/200/" alt=""></td>
           <td>
-            <a href="">Удалить пользователя</a>
+            <a href="">Удалить аватарку пользователя</a>
           </td>
         </tr>
       </table>

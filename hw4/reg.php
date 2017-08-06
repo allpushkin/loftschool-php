@@ -27,55 +27,35 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Авторизация</a></li>
-            <li><a href="reg.html">Регистрация</a></li>
-            <li><a href="list.html">Список пользователей</a></li>
-            <li><a href="filelist.html">Список файлов</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+    <?php include "components/header.php"; ?>
 
     <div class="container">
 
       <div class="form-container">
-        <form class="form-horizontal" action="">
+        <form class="form-horizontal" action="registration/registration.php" method="post" accept-charset="UTF-8">
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Логин</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputEmail3" placeholder="Логин">
+              <input type="text" class="form-control" id="inputEmail3" placeholder="Логин" name="login">
             </div>
           </div>
           <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="inputPassword3" placeholder="Пароль">
+              <input type="password" class="form-control" id="inputPassword3" placeholder="Пароль" name="password">
             </div>
           </div>
           <div class="form-group">
-            <label for="inputPassword4" class="col-sm-2 control-label">Пароль (Повтор)</label>
+            <label for="inputPassword4" class="col-sm-2 control-label" >Пароль (Повтор)</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="inputPassword4" placeholder="Пароль">
+              <input type="password" class="form-control" id="inputPassword4" placeholder="Пароль" name="password2">
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-default">Зарегистрироваться</button>
               <br><br>
-              Зарегистрированы? <a href="index.html">Авторизируйтесь</a>
+              Зарегистрированы? <a href="index.php">Авторизируйтесь</a>
             </div>
           </div>
         </form>
