@@ -2,13 +2,17 @@ body {
     padding-top: 50px;
 }
 
+textarea {
+    width: 491px;
+}
+
 .starter-template {
     padding: 40px 15px;
     text-align: center;
 }
 
 .form-container {
-    margin-top: 15%;
+    margin-top: 10%;
     width: 100%;
     text-align: center;
     display: flex;

@@ -8,31 +8,30 @@
     <title>Homework 3</title>
 </head>
 <body>
+    <?php
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
+
+    require_once "functions.php";
+
+    echo "<h2>Задание 1</h2>";
+
+    homework3Task1("./data.xml");
+
+    echo "<h2>Задание 2</h2>";
+
+    homework3Task2([[["1", "2"], ["3", "4"], ["5", "6"]], ["7", "8"]]);
+
+    echo "<h2>Задание 3</h2>";
+
+    homework3Task3(50);
+
+    echo "<h2>Задание 4</h2>";
+
+    $url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Main%20Page";
+
+    homework3Task4($url);
+    ?>
 
 </body>
 </html>
-
-<?php
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-
-require_once "functions.php";
-
-echo "<h2>Задание 1</h2>";
-
-homework3Task1("./data.xml");
-
-echo "<h2>Задание 2</h2>";
-
-homework3Task2([[["One", "Two"], ["Three", "Four"], ["Five", "Six"]], ["Seven", "Eight"]]);
-
-
-echo "<h2>Задание 3</h2>";
-
-homework3Task3(50);
-
-echo "<h2>Задание 4</h2>";
-
-$url = "https://en.wikipedia.org/w/api.php?action=query&titles=Main%20Page&prop=revisions&rvprop=content&format=json";
-
-homework3Task4($url);

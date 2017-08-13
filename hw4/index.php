@@ -1,30 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Выпускной проект 1</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
-
-  </head>
+    <?php require "components/head.php"; ?>
 
   <body>
-
-  <?php require "components/header.php"; ?>
+    <?php require "components/header.php"; ?>
 
     <div class="container">
 
       <div class="form-container">
-        <form class="form-horizontal" action="registration/authorization.php">
+        <form class="form-horizontal" action="registration/validation.php">
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Логин</label>
             <div class="col-sm-10">
@@ -48,7 +32,6 @@
       </div>
 
     </div><!-- /.container -->
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/bootstrap.min.js"></script>
