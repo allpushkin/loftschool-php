@@ -1,71 +1,74 @@
 <?php
 
-session_start();
-
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-
+require_once "../components/helpers.php";
 require_once "db/db.php";
 
-$loginErr = $passwordErr = $password2Err = "";
+$login_err = $password_err = $password2_err = "";
 $login = $password = $password2 = "";
-$loginOk = $PassOk = false;
-
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+$login_ok = $pass_ok = false;
+$age = $_POST['age'];
+$min_len = 6;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["login"])) {
-        $loginErr = "Login is required";
+        $login_err = "Login is required";
     } else {
         $login = test_input($_POST["login"]);
-        $loginErr = "";
+        $login_err = "";
 
         if (strlen($login) < 4) {
-            $loginErr = "Login must have not less than 4 letters";
+            $login_err = "Login must have not less than 4 letters";
         } else {
-            $loginErr = "";
+            $login_err = "";
             $query = 'SELECT * FROM users';
-            $checkUserLogin = $mysqli->query("SELECT id from users WHERE login = '$login'");
-            if ($checkUserLogin->num_rows) {
-                $loginErr = "Already Exists";
+            // @codingStandardsIgnoreStart
+            $check_user_login = $mysqli->query("SELECT id from users WHERE login = '$login'");
+            // @codingStandardsIgnoreEnd
+            if ($check_user_login->num_rows) {
+                $login_err = "Already Exists";
             } else {
-                $loginOk = true;
+                $login_ok = true;
+
+                if (empty($_POST["password"]) || empty($_POST["password2"])) {
+                    if (empty($_POST["password"])) {
+                        $password_err = "Password is required";
+                    }
+
+                    if (empty($_POST["password2"])) {
+                        $password2_err = "Repeat password is required";
+                    }
+                } elseif ($_POST["password"] != $_POST["password2"]) {
+                    $password_err = $password2_err = "Passwords are not equal!";
+                } elseif (strlen($_POST["password"]) < $min_len || strlen($_POST["password2"]) < $min_len) {
+                    if (strlen($password) < $min_len) {
+                        $password_err = "Password must have not less than 6 letters";
+                    }
+
+                    if (strlen($password2) < $min_len) {
+                        $password_err = "Password must have not less than 6 letters";
+                    }
+                } else {
+                    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    $pass_ok = true;
+                }
             }
         }
     }
 
-    if (empty($_POST["password"]) || empty($_POST["password2"])) {
-        if (empty($_POST["password"])) {
-            $passwordErr = "Password is required";
-        }
+    $name = test_input($_POST['name']);
 
-        if (empty($_POST["password2"])) {
-            $password2Err = "Repeat password is required";
-        }
-    } elseif ($_POST["password"] != $_POST["password2"]) {
-        $passwordErr = $password2Err = "Passwords are not equal!";
-    } elseif (strlen($_POST["password"]) < 8 || strlen($_POST["password2"]) < 8) {
-        if (strlen($password) < 8) {
-            $passwordErr = "Password must have not less than 8 letters";
-        }
-
-        if (strlen($password2) < 8) {
-            $passwordErr = "Password must have not less than 8 letters";
+    if ($pass_ok && $login_ok) {
+        $query = "INSERT INTO users (`login`, `password`, `name`, `age`, `date`) 
+                  VALUES ('$login', '$password', '$name', '$age', Now())";
+        if ($mysqli->query($query)) {
+            echo "Регистрация прошла успешно!";
+        } else {
+            echo "Там короче что-то пошло не так...";
         }
     } else {
-        $PassOk = true;
+        echo "pass: " . $pass_ok;
+        echo "login: " . $login_ok;
     }
 
-    if ($PassOk & $loginOk) {
-    } else {
-        $_POST = [];
-    }
-
-    print_r($_POST);
+    $mysqli->close();
 }

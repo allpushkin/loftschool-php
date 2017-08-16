@@ -1,8 +1,16 @@
 <?php
+
+session_start();
+
 echo '<nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <button type="button" 
+          class="navbar-toggle collapsed" 
+          data-toggle="collapse" 
+          data-target="#navbar" 
+          aria-expanded="false" 
+          aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -15,10 +23,11 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">
             <li class="active"><a href="index.php">Авторизация</a></li>
             <li><a href="reg.php">Регистрация</a></li>';
 
-if (!isset($_SESSION['loggedin'])) {
+if ($_SESSION['logedin'] === 1) {
     echo '
-      <li><a href="list.php">Список пользователей</a></li>
-      <li><a href="filelist.php">Список файлов</a></li>
+      <li><a href="../list.php">Список пользователей</a></li>
+      <li><a href="../filelist.php">Список файлов</a></li>
+      <li><a href="../registration/logout.php">Выйти</a></li>
     ';
 }
           echo '</ul>

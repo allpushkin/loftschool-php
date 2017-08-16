@@ -1,9 +1,7 @@
 <?php
-require_once "./registration/db/db.php";
-
+require_once "./registration/db/db.php";x
 ?>
 
-  <!DOCTYPE html>
   <html lang="en">
     <?php require "components/head.php"; ?>
 
@@ -33,7 +31,7 @@ require_once "./registration/db/db.php";
             echo "<td>{$row['name']}</td>";
             echo "<td>{$row['age']}</td>";
             echo "<td>{$row['description']}</td>";
-            echo "<td><img src='registration/pictures/{$row['photo']}'></td>";
+            echo "<td><img src='registration/pictures/{$row['picture']}'></td>";
             echo "<td><a href='https://yandex.ru'>Remove user</a></td>";
             echo "</tr>";
         }

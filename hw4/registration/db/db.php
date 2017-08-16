@@ -3,8 +3,6 @@
 $config = include 'config.php';
 
 $mysqli = new mysqli(
-
-
     $config->host,
     $config->username,
     $config->password,

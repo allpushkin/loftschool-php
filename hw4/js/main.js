@@ -1,7 +1,6 @@
 /**
  * Created by arku on 07.03.2017.
  */
-console.log('Hello, World')
 var selector = "div.starter-template>h1";
 
 var zagolovok = $(selector);

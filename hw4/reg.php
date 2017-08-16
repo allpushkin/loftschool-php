@@ -11,47 +11,67 @@
 
 <div class="container">
     <div class="form-container">
-        <form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"
+        <form class="form-horizontal" action="registration/validation.php" method="post"
               accept-charset="UTF-8">
-            <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">Логин</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="login" placeholder="Логин" name="login"
-                           value="<?php echo $login; ?>">
-                    <?php echo $loginErr; ?>
+                <div class="header">
+                    <h1>Регистрация:</h1>
                 </div>
-            </div>
             <div class="form-group">
-                <label for="inputPassword4" class="col-sm-2 control-label">Имя</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" placeholder="Имя" name="name" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword4" class="col-sm-2 control-label">Возраст</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="age" placeholder="Возраст" name="age" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="pass1" placeholder="Пароль" name="password"
+                <div class="col-sm-12">
+                    <input type="text"
+                           class="form-control"
+                           id="login"
+                           placeholder="Логин"
+                           name="login"
                            required>
-                    <?php echo $passwordErr; ?>
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword4" class="col-sm-2 control-label">Пароль (Повтор)</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="pass2" placeholder="Пароль" name="password2"
+                <div class="col-sm-12">
+                    <input type="text"
+                           class="form-control"
+                           id="name"
+                           placeholder="Имя"
+                           name="name"
                            required>
-                    <?php echo $password2Err; ?>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button id="submit" class="btn btn-default">Зарегистрироваться</button>
+                <div class="col-sm-12">
+                    <input type="number"
+                           class="form-control"
+                           id="age"
+                           placeholder="Возраст"
+                           name="age"
+                           required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="password"
+                           class="form-control"
+                           id="pass1"
+                           placeholder="Пароль"
+                           name="password"
+                           required>
+                    <?php echo $password_err; ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="password"
+                           class="form-control"
+                           id="pass2"
+                           placeholder="Пароль ещё разок"
+                           name="password2"
+                           required>
+                    <?php echo $password2_err; ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <button id="submit"
+                            class="btn btn-basic">Зарегистрироваться</button>
                     <br><br>
                     Зарегистрированы? <a href="index.php">Авторизируйтесь</a>
                 </div>
@@ -63,14 +83,15 @@
 <script type="text/javascript">
     var submit = document.getElementById('submit');
 
-    submit.addEventListener("click", function () {
-        var login = document.getElementById('login').value;
-        var name = document.getElementById('name').value;
-        var age = document.getElementById('age').value;
-        var pass1 = document.getElementById('pass1').value;
-        var pass2 = document.getElementById('pass2').value;
-        var data = [login, name, age, pass1, pass2].join("&");
+    submit.addEventListener("click", function (e) {
+        e.preventDefault();
 
+        var login = 'login=' + document.getElementById('login').value;
+        var name = 'name=' + document.getElementById('name').value;
+        var age = 'age=' + document.getElementById('age').value;
+        var pass1 = 'password=' + document.getElementById('pass1').value;
+        var pass2 = 'password2=' + document.getElementById('pass2').value;
+        var data = [login, name, age, pass1, pass2].join("&");
         console.log(data);
 
         var xhr = new XMLHttpRequest();
