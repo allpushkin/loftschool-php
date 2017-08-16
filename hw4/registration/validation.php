@@ -1,49 +1,71 @@
 <?php
-$config = include 'db/config.php';
 
-$mysqli = new mysqli(
-    $config->host,
-    $config->username,
-    $config->password,
-    $config->database,
-    $config->port
-);
+session_start();
 
-$mysqli->set_charset('utf8');
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+require_once "db/db.php";
+
+$loginErr = $passwordErr = $password2Err = "";
+$login = $password = $password2 = "";
+$loginOk = $PassOk = false;
+
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
-?>
 
-    <!DOCTYPE html>
-    <html lang="en">
-        <?php require "../components/head.php"; ?>
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["login"])) {
+        $loginErr = "Login is required";
+    } else {
+        $login = test_input($_POST["login"]);
+        $loginErr = "";
 
-    <body>
-        <?php require "../components/header.php"; ?>
+        if (strlen($login) < 4) {
+            $loginErr = "Login must have not less than 4 letters";
+        } else {
+            $loginErr = "";
+            $query = 'SELECT * FROM users';
+            $checkUserLogin = $mysqli->query("SELECT id from users WHERE login = '$login'");
+            if ($checkUserLogin->num_rows) {
+                $loginErr = "Already Exists";
+            } else {
+                $loginOk = true;
+            }
+        }
+    }
 
-    <div class="form-container">
-        <form class="form-horizontal" action="registration.php">
-        <h2 class="form-group">Example heading</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" id="username" name="login" placeholder="Логин">
-            </div>
-            <div class="form-group">
-                <input type="number" class="form-control" id="age" placeholder="Возраст">
-            </div>
-            <div class="form-group">
-                <textarea type="number" rows="4" class="form-control" id="description" placeholder="О себе"></textarea>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-default">Зарегистрироваться</button>
-            </div>
-        </form>
-      </div>
+    if (empty($_POST["password"]) || empty($_POST["password2"])) {
+        if (empty($_POST["password"])) {
+            $passwordErr = "Password is required";
+        }
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="../js/main.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-    </body>
+        if (empty($_POST["password2"])) {
+            $password2Err = "Repeat password is required";
+        }
+    } elseif ($_POST["password"] != $_POST["password2"]) {
+        $passwordErr = $password2Err = "Passwords are not equal!";
+    } elseif (strlen($_POST["password"]) < 8 || strlen($_POST["password2"]) < 8) {
+        if (strlen($password) < 8) {
+            $passwordErr = "Password must have not less than 8 letters";
+        }
 
-    </html>
+        if (strlen($password2) < 8) {
+            $passwordErr = "Password must have not less than 8 letters";
+        }
+    } else {
+        $PassOk = true;
+    }
+
+    if ($PassOk & $loginOk) {
+    } else {
+        $_POST = [];
+    }
+
+    print_r($_POST);
+}

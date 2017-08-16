@@ -15,7 +15,7 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">
             <li class="active"><a href="index.php">Авторизация</a></li>
             <li><a href="reg.php">Регистрация</a></li>';
 
-if (!$_SESSION['loggedin']) {
+if (!isset($_SESSION['loggedin'])) {
     echo '
       <li><a href="list.php">Список пользователей</a></li>
       <li><a href="filelist.php">Список файлов</a></li>

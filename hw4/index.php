@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+
+<?php
+session_start();
+header("Location");
+?>
 <html lang="en">
     <?php require "components/head.php"; ?>
 
