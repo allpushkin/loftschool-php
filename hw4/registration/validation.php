@@ -1,5 +1,4 @@
 <?php
-
 require_once "../components/helpers.php";
 require_once "db/db.php";
 
@@ -17,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $login_err = "";
 
         if (strlen($login) < 4) {
-            $login_err = "Login must have not less than 4 letters";
+            echo "Login must have not less than 4 letters";
         } else {
             $login_err = "";
             $query = 'SELECT * FROM users';
@@ -25,27 +24,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $check_user_login = $mysqli->query("SELECT id from users WHERE login = '$login'");
             // @codingStandardsIgnoreEnd
             if ($check_user_login->num_rows) {
-                $login_err = "Already Exists";
+                echo "Already Exists";
             } else {
                 $login_ok = true;
 
                 if (empty($_POST["password"]) || empty($_POST["password2"])) {
                     if (empty($_POST["password"])) {
                         $password_err = "Password is required";
+                        echo $password_err;
                     }
 
                     if (empty($_POST["password2"])) {
                         $password2_err = "Repeat password is required";
+                        echo $password2_err;
                     }
                 } elseif ($_POST["password"] != $_POST["password2"]) {
                     $password_err = $password2_err = "Passwords are not equal!";
                 } elseif (strlen($_POST["password"]) < $min_len || strlen($_POST["password2"]) < $min_len) {
                     if (strlen($password) < $min_len) {
                         $password_err = "Password must have not less than 6 letters";
+                        echo $password_err;
                     }
 
                     if (strlen($password2) < $min_len) {
                         $password_err = "Password must have not less than 6 letters";
+                        echo $password_err;
                     }
                 } else {
                     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);

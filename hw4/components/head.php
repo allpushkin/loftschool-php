@@ -5,6 +5,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Starter Template for Bootstrap</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/starter-template.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+      <link href="../css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../starter-template.css" rel="stylesheet" />
   </head>

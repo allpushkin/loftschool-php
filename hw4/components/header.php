@@ -1,8 +1,15 @@
 <?php
 
-session_start();
+function selected($requestUri)
+{
+    $current_file_name = basename($_SERVER['REQUEST_URI'], ".php");
+    if ($current_file_name == $requestUri) return 'class="active"';
+    else return"";
+}
 
-echo '<nav class="navbar navbar-inverse navbar-fixed-top">
+?>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" 
@@ -16,20 +23,31 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>;
-          <a class="navbar-brand" href="/index.php">Chirkov M.A.</a>
+          <a class="navbar-brand">Chirkov M.A.</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Авторизация</a></li>
-            <li><a href="reg.php">Регистрация</a></li>';
+          <ul class="nav navbar-nav">';
+<?php
+
+$index = selected("index");
+$reg = selected("reg");
+
+if (!$_SESSION['logedin']) {
+    echo "<li {$index}><a href=\"/index.php\">Авторизация</a></li>";
+    echo "<li {$reg}><a href=\"../registration/reg.php\">Регистрация</a></li>";
+}
+
+$list = selected("list");
+$filelist = selected("filelist");
+$personal = selected("personal");
 
 if ($_SESSION['logedin'] === 1) {
-    echo '
-      <li><a href="../list.php">Список пользователей</a></li>
-      <li><a href="../filelist.php">Список файлов</a></li>
-      <li><a href="../registration/logout.php">Выйти</a></li>
-    ';
+    echo "
+      <li {$personal}><a href=\"../useractions/personal.php\">Личный кабинет</a></li>
+      <li {$list}><a href=\"../useractions/list.php\">Список пользователей</a></li>
+      <li {$filelist}><a href=\"../useractions/filelist.php\">Список файлов</a></li>
+      <li><a style='color:red;'href=\"../registration/logout.php\">Выйти</a></li>
+    ";
 }
-          echo '</ul>
-        </div>
-    </nav>';
+
+echo '</ul></div></nav>';

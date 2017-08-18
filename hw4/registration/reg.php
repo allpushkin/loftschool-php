@@ -1,17 +1,12 @@
-<?php
 
-
-?>
-
-<html lang="en">
-<?php require "components/head.php"; ?>
+<?php require "../components/head.php"; ?>
 
 <body>
-<?php include "components/header.php"; ?>
+<?php include "../components/header.php"; ?>
 
 <div class="container">
     <div class="form-container">
-        <form class="form-horizontal" action="registration/validation.php" method="post"
+        <form class="form-horizontal" action="" method="post"
               accept-charset="UTF-8">
                 <div class="header">
                     <h1>Регистрация:</h1>
@@ -70,10 +65,11 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-12">
-                    <button id="submit"
-                            class="btn btn-basic">Зарегистрироваться</button>
+                    <input id="submit"
+                            type="button"
+                            class="btn btn-basic" value="Зарегистрироваться" />
                     <br><br>
-                    Зарегистрированы? <a href="index.php">Авторизируйтесь</a>
+                    Зарегистрированы? <a href="../index.php">Авторизируйтесь</a>
                 </div>
             </div>
         </form>
@@ -95,20 +91,19 @@
         console.log(data);
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "registration/validation.php", true);
+        xhr.open("POST", "validation.php", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send(data);
         xhr.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                alert(this.responseText);
                 // document.getElementById("txtHint").innerHTML = this.responseText;
             }
         };
     });
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 
 </body>
 </html>
