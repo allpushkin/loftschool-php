@@ -1,7 +1,7 @@
 <?php
 
 $databaseHost = 'localhost:8889';
-$databaseName = 'hamburgers';
+$databaseName = 'hamburgers-vp1';
 $databaseUsername = 'root';
 $databasePassword = 'root';
 

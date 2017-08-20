@@ -1,7 +1,9 @@
 var form = document.getElementById('form');
 var button = document.querySelector('#order');
 
-button.addEventListener("click", function() {
+form.addEventListener("submit", function (e) {
+   e.preventDefault();
+
     var name = 'name=' + document.querySelector('input[name="name"]').value;
     var phone = 'phone=' + (document.querySelector('input[name="phone"]').value).replace(/\s/g, '');
     var email = 'email=' + document.querySelector('input[name="email"]').value;
@@ -18,11 +20,9 @@ button.addEventListener("click", function() {
     xhr.open("POST", "order.php", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send(data);
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             alert(this.responseText);
-            // document.getElementById("txtHint").innerHTML = this.responseText;
         }
     };
-
 });
