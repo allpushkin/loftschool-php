@@ -18,7 +18,7 @@ $result = mysqli_query($mysqli, $query);
 <body>
 
 	<table width='100%' border=0>
-		<a href="index.php">Новые</a> | <a href="done.php">Обработанные</a>
+        <a href="index.php">Новые</a> | <a href="done.php">Обработанные</a> | <a href="users.php">Пользователи</a>
 
 	<tr bgcolor='#CCCCCC'>
 		<td>ID</td>
