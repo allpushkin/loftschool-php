@@ -7,6 +7,12 @@
 file.csv
 output.json
 output2.json
-/hw4/registration/config.php
+/hw4/useractions/db/config.php
+/hw4/registration/db/config.php
 /hw4/test.html
 /hw4/useractions/pictures/
+.php_cs.cache
+vendor/
+pr1-hamburger/mailer-config.php
+pr2-mvc/.htaccess
+hw4/useractions/db/config.php

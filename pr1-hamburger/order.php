@@ -2,6 +2,8 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
+require_once '../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+
 proceedOrder();
 
 function proceedOrder()
@@ -21,7 +23,7 @@ function proceedOrder()
         $appt = filter_input(INPUT_POST, 'appt', FILTER_SANITIZE_STRING);
         $floor = filter_input(INPUT_POST, 'floor', FILTER_SANITIZE_STRING);
 
-        $adress = $street . " " . $home . " Корпус: {$part} " . "Квартира: {$appt} " . "Этаж: {$floor}";
+        $address = $street . " " . $home . " Корпус: {$part} " . "Квартира: {$appt} " . "Этаж: {$floor}";
 
         $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
         $payment = filter_input(INPUT_POST, 'payment', FILTER_SANITIZE_STRING);
@@ -57,11 +59,10 @@ function proceedOrder()
             $first_order = true;
         }
 
-        $insert_order = $pdo->prepare("insert into orders (name, phone, adress, callback, payment, comment, date) values ('$name', '$phone', '$adress', '$callback', '$payment', '$comment', NOW())");
+        $insert_order = $pdo->prepare("insert into orders (name, phone, address, callback, payment, comment, date) values ('$name', '$phone', '$address', '$callback', '$payment', '$comment', NOW())");
 
         if ($insert_order->execute()) {
-            echo "Ваш заказ успешно размещен";
-            $order_id = $pdo->prepare("SELECT MAX(id) FROM orders WHERE name = '$name' AND phone='$phone' AND adress='$adress'");
+            $order_id = $pdo->prepare("SELECT MAX(id) FROM orders WHERE name = '$name' AND phone='$phone' AND address='$address'");
             $order_id->execute();
             $order_id = $order_id->fetchColumn();
             $order_number = $pdo->prepare("SELECT orders FROM users WHERE email = '$email'");
@@ -69,21 +70,45 @@ function proceedOrder()
             $order_number = $order_number->fetchColumn();
 
             // Отпроавляем письмо
-            $to      = $email;
-            $subject = 'Ваш заказ успешно размещен.';
-            $message = "Уважаемый {$name}, Ваш заказ № {$order_id} успешно размещен!\n";
-            $message .= "Заказ будет доставлен по адресу: {$adress}.\n";
-
-            if ($first_order) {
-                $message .= "Спасибо за ваш первый заказ!";
-            } else {
-                $message .= "Спасибо, это ваш {$order_number} заказ!\n";
-            }
-
-            echo $message;
-            mail($to, $subject, $message);
+            $config = require 'mailer-config.php';
+            sendMail($config, $email, $name, $order_id, $address, $first_order, $order_number);
+            echo "Ваш заказ успешно размещен";
         }
     } catch (Exception $e) {
         echo 'Message: ' .$e->getMessage();
+    }
+}
+
+function sendMail($config, $to, $name, $order_id, $address, $first_order, $order_number)
+{
+    $mail = new PHPMailer;
+    //$mail->SMTPDebug = 3;
+    $mail->isSMTP();
+    $mail->Host = $config->host;
+    $mail->SMTPAuth = true;
+    $mail->Username = $config->username;
+    $mail->Password = $config->password;
+    $mail->SMTPSecure = 'SSL';
+    $mail->PORT = $config->port;
+    $mail->setFrom($config->username, 'Гамбургеры');
+    $mail->addReplyTo($config->username, 'Гамбургеры');
+    $mail->addAddress($to);
+    $mail->Subject = "Ваш заказ успешно размещен.";
+    $mail->Body = "Уважаемый";
+    $mail->Subject = 'Ваш заказ успешно размещен.';
+    $mail->Body = "Уважаемый " . $name . ", Ваш заказ " . $order_id . " успешно размещен.\n"
+                . "Заказ будет доставлен по адресу: {$address}.\n";
+
+    if ($first_order) {
+        $mail->Body .= "Спасибо за ваш первый заказ!";
+    } else {
+        $mail->Body .= "Спасибо, это ваш {$order_number} заказ!\n";
+    }
+
+    if (!$mail->send()) {
+        echo 'Message could not be sent.';
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+    } else {
+        echo 'Message has been sent';
     }
 }
