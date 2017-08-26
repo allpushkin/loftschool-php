@@ -8,7 +8,7 @@
     <title>Главная страница
     </title>
     <link rel="stylesheet" href="./css/vendors.min.css">
-    <link rel="stylesheet" href="../css/main.min.css">
+    <link rel="stylesheet" href="./css/main.min.css">
 </head>
 
 <body>
@@ -447,9 +447,10 @@
                       </label>
                                     </div>
                                     <div class="order__form-row">
-                                        <input class="order__form-button" id="order" type="submit" value="Заказать">
+                                        <input class="order__form-button" name="submit" id="order" type="submit" value="Заказать">
                                         <input class="order__form-button order__form-button_reset" type="reset" value="Очистить">
                                     </div>
+                                    <div class="g-recaptcha" data-sitekey="6LeIHC4UAAAAABjupx6MKvMGwrvGq_mIQIORn73g"></div>
                                 </div>
                             </div>
                         </form>
@@ -518,6 +519,7 @@
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script src="./js/main.min.js"></script>
     <script src="./js/order.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 
 </body>
 

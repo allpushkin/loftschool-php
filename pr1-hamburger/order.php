@@ -4,7 +4,21 @@ ini_set("display_errors", 1);
 
 require_once '../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 
-proceedOrder();
+if (isset($_POST['submit'])) {
+
+    $secret = "6LeIHC4UAAAAAIzFCUZb4EUpwO11lxRl_Opb26tY";
+    $responseKey = $_POST['g-recaptcha-response'];
+    $remoteip = $_SERVER['REMOTE_ADDR'];
+    $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$responseKey&remoteip=$remoteip";
+    $captcha = file_get_contents($url);
+    $captcha = json_decode($captcha);
+
+    if ($captcha->success) proceedOrder();
+    else echo "Ошибка при отправке формы!";
+
+}
+
+
 
 function proceedOrder()
 {
@@ -12,7 +26,6 @@ function proceedOrder()
         $pdo = new PDO("mysql:host=localhost:8889;dbname=hamburgers-vp1", "root", "root");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $date = time();
         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
         $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_NUMBER_INT);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -59,10 +72,13 @@ function proceedOrder()
             $first_order = true;
         }
 
-        $insert_order = $pdo->prepare("insert into orders (name, phone, address, callback, payment, comment, date) values ('$name', '$phone', '$address', '$callback', '$payment', '$comment', NOW())");
+        $insert_order =
+            $pdo->prepare("insert into orders (name, phone, address, callback, payment, comment, date) values ('$name', '$phone', '$address', '$callback', '$payment', '$comment', NOW())");
 
         if ($insert_order->execute()) {
-            $order_id = $pdo->prepare("SELECT MAX(id) FROM orders WHERE name = '$name' AND phone='$phone' AND address='$address'");
+            $order_id = $pdo->prepare("SELECT MAX(id) 
+                                                 FROM orders WHERE name = '$name' 
+                                                 AND phone='$phone' AND address='$address'");
             $order_id->execute();
             $order_id = $order_id->fetchColumn();
             $order_number = $pdo->prepare("SELECT orders FROM users WHERE email = '$email'");

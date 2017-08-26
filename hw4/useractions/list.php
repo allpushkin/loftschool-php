@@ -2,15 +2,14 @@
 require_once"../components/logincheck.php";
 require_once"../components/helpers.php";
 require_once "db/db.php";
+require_once "../../vendor/autoload.php";
 ?>
 
   <html lang="en">
     <?php require "../components/head.php"; ?>
 
   <body>
-    <?php require "../components/header.php";
-
-    ?>
+    <?php require "../components/header.php"; ?>
 
     <div class="container">
       <table class="table table-bordered">

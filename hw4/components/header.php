@@ -33,7 +33,7 @@ $index = selected("index");
 $reg = selected("reg");
 
 if (!$_SESSION['logedin']) {
-    echo "<li {$index}><a href=\"/index.php\">Авторизация</a></li>";
+    echo "<li {$index}><a href=\"/index.html\">Авторизация</a></li>";
     echo "<li {$reg}><a href=\"../registration/reg.php\">Регистрация</a></li>";
 }
 

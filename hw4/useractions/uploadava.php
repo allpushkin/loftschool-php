@@ -3,6 +3,9 @@ session_start();
 if ($_SESSION['logedin'] != 1) {
     header("location:../registration/logout.php");
 }
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 $login = $_SESSION['login'];
 require_once "db/db.php";
 

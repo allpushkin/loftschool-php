@@ -1,5 +1,7 @@
 {
     "require": {
-        "phpmailer/phpmailer": "^5.2"
+        "phpmailer/phpmailer": "^5.2",
+        "claviska/simpleimage": "^3.3",
+        "twig/twig": "~2.0"
     }
 }

@@ -20,5 +20,5 @@ if ($correct && $check_user_login) {
     header("Location:../useractions/personal.php");
 } else {
     $_SESSION['error'] = 'Неверный ввод';
-    header("location:../index.php");
+    header("location:../index.html");
 }
