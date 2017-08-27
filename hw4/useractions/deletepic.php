@@ -2,10 +2,20 @@
 require_once "../components/helpers.php";
 require_once "../registration/db/db.php";
 
-$picture = test_input($_GET['del']);
-$file ='pictures/' . $picture;
-unlink($file);
-$query = "UPDATE users SET picture='' WHERE picture='$file'";
-$mysqli->query($query);
+$picture = test_input($_POST['name']);
+$tmp = explode(".", $picture);
+$fileType = end($tmp);
+$fileExtensions = ['jpeg','jpg','png'];
 
-header("location:javascript://history.go(-1)");
+$file ='pictures/' . $picture;
+$path = realpath($file);
+$path = dirname($file, 1);
+
+if ($path === "pictures" && in_array($fileType, $fileExtensions) && $picture != "default.jpg") {
+    unlink($file);
+    $query = "UPDATE users SET picture='' WHERE picture='$file'";
+    $mysqli->query($query);
+    echo "Файл успешно удален!";
+} else {
+    echo "Ты не прав!";
+};

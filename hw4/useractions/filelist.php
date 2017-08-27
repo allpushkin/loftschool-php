@@ -13,7 +13,7 @@ require_once "db/db.php";
 
 <div class="container">
     <div class="container">
-        <table class="table table-bordered">
+        <table style="margin-top: 10px;" class="table table-bordered">
             <tr>
                 <th>Название файла</th>
                 <th>Фотография</th>
@@ -22,15 +22,15 @@ require_once "db/db.php";
 
             <?php
             $directory = 'pictures/';
-            $scannedDirectory = array_diff(scandir($directory), array('..', '.', '.DS_Store', 'default.jpg'));
+            $scannedDirectory = array_values(array_diff(scandir($directory), ['..', '.', '.DS_Store', 'default.jpg']));
             $counter = 0;
 
                 while ($counter < count($scannedDirectory)) {
                     echo "<tr>";
-                    $name = $scannedDirectory[$counter+4];
+                    $name = $scannedDirectory[$counter];
                     echo "<td>$name</td>";
                     echo "<td><img src=\"pictures/$name\" /></td>";
-                    echo "<td><a name='$name' onclick=\"return DeleteEntry(this.name);\">Delete picture</a></td>";
+                    echo "<td><a name='$name' id='delete'>Delete picture</a></td>";
                     echo "</tr>";
                     $counter++;
                 }
@@ -45,6 +45,24 @@ require_once "db/db.php";
                 window.location = "deletepic.php?del=" + id;
             return false;
         }
+
+        if (document.getElementById('delete')) {
+            var del = document.getElementById('delete');
+
+            del.addEventListener("click", function (e) {
+                var name = "name=" + e.target.name;
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "deletepic.php", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(name);
+                xhr.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        alert(this.responseText);
+                    }
+                }
+            });
+        };
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/main.js"></script>
