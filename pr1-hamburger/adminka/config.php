@@ -6,8 +6,3 @@ return (object) array(
     'password' => 'root',
     'database' => 'hamburgers-vp1'
 );
-
-//$databaseHost = 'localhost:8889';
-//$databaseName = 'hamburgers-vp1';
-//$databaseUsername = 'root';
-//$databasePassword = 'root';
