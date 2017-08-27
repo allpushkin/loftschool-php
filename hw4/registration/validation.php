@@ -19,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Login must have not less than 4 letters";
         } else {
             $login_err = "";
-            $query = 'SELECT * FROM users';
             // @codingStandardsIgnoreStart
             $check_user_login = $mysqli->query("SELECT id from users WHERE login = '$login'");
             // @codingStandardsIgnoreEnd
