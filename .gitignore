@@ -16,3 +16,4 @@ vendor/
 pr1-hamburger/mailer-config.php
 pr2-mvc/.htaccess
 hw4/useractions/db/config.php
+/pr1-hamburger/adminka/config.php

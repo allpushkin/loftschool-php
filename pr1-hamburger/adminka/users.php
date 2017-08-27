@@ -1,6 +1,7 @@
 <?php
-require_once "config.php";
-$result = mysqli_query($mysqli, "SELECT * FROM users"); // using mysqli_query instead
+$config = include "config.php";
+$mysqli = mysqli_connect($config->host, $config->username, $config->password, $config->database);
+$result = mysqli_query($mysqli, "SELECT * FROM users");
 ?>
 
 <html>

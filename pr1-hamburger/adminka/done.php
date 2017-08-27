@@ -1,6 +1,7 @@
 <?php
-include_once("config.php");
-$result = mysqli_query($mysqli, "SELECT * FROM orders WHERE proceeded = '1' ORDER BY id DESC"); // using mysqli_query instead
+$config = include "config.php";
+$mysqli = mysqli_connect($config->host, $config->username, $config->password, $config->database);
+$result = mysqli_query($mysqli, "SELECT * FROM orders WHERE proceeded = '1' ORDER BY id DESC");
 ?>
 
 <html>
@@ -33,7 +34,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM orders WHERE proceeded = '1' ORDE
         echo "<td>{$v['name']}</td>";
         echo "<td>{$v['phone']}</td>";
         echo "<td>{$v['email']}</td>";
-        echo "<td style='width:400px;'>{$v['adress']}</td>";
+        echo "<td style='width:400px;'>{$v['address']}</td>";
         echo "<td>{$v['callback']}</td>";
         echo "<td>{$v['payment']}</td>";
         echo "<td>{$v['comment']}</td>";

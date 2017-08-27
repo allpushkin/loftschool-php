@@ -1,12 +1,10 @@
 <?php
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
-
-// На этой странице отображаем необработанные заказы
-
-include_once("config.php");
-$query = "SELECT * FROM orders WHERE proceeded = '0' ORDER BY id DESC";
-$result = mysqli_query($mysqli, $query);
+$config = include "config.php";
+$mysqli = mysqli_connect($config->host, $config->username, $config->password, $config->database);
+$stmt = "SELECT * FROM orders WHERE proceeded = '0' ORDER BY id DESC";
+$result = mysqli_query($mysqli, $stmt);
 ?>
 
 <html>

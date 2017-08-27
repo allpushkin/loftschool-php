@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-require_once '../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+require_once "../vendor/phpmailer/phpmailer/PHPMailerAutoload.php";
 
 if (isset($_POST['submit'])) {
 
@@ -18,12 +18,11 @@ if (isset($_POST['submit'])) {
 
 }
 
-
-
 function proceedOrder()
 {
     try {
-        $pdo = new PDO("mysql:host=localhost:8889;dbname=hamburgers-vp1", "root", "root");
+        $config = include "adminka/config.php";
+        $pdo = new PDO("mysql:host=$config->host;dbname=$config->database", $config->username, $config->password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
@@ -73,7 +72,8 @@ function proceedOrder()
         }
 
         $insert_order =
-            $pdo->prepare("insert into orders (name, phone, address, callback, payment, comment, date) values ('$name', '$phone', '$address', '$callback', '$payment', '$comment', NOW())");
+            $pdo->prepare("insert into orders (name, phone, address, callback, payment, comment, date) 
+            values ('$name', '$phone', '$address', '$callback', '$payment', '$comment', NOW())");
 
         if ($insert_order->execute()) {
             $order_id = $pdo->prepare("SELECT MAX(id) 
