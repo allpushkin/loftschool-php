@@ -1,5 +1,5 @@
 <?php
-include_once("config.php");
+require_once "config.php";
 $result = mysqli_query($mysqli, "SELECT * FROM users"); // using mysqli_query instead
 ?>
 
@@ -22,7 +22,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM users"); // using mysqli_query in
     </tr>
 
     <?php
-    //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array
+
     while ($v = mysqli_fetch_array($result)) {
         echo "<tr>";
         echo "<tr style='border: solid 1px black;'>";

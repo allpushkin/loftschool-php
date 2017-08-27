@@ -38,7 +38,7 @@ $result = mysqli_query($mysqli, $query);
         echo "<td>{$v['id']}</td>";
         echo "<td>{$v['name']}</td>";
         echo "<td>{$v['phone']}</td>";
-        echo "<td style='width:400px;'>{$v['adress']}</td>";
+        echo "<td style='width:400px;'>{$v['address']}</td>";
         echo "<td>{$v['callback']}</td>";
         echo "<td>{$v['payment']}</td>";
         echo "<td>{$v['comment']}</td>";
