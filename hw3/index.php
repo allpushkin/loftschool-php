@@ -1,3 +1,12 @@
+<?php
+
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
+require_once "functions.php";
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,10 +18,6 @@
 </head>
 <body>
     <?php
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-
-    require_once "functions.php";
 
     echo "<h2>Задание 1</h2>";
 
